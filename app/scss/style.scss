@@ -1,0 +1,148 @@
+@import 'vars';
+@import 'fonts';
+@import 'reset';
+@import 'lips';
+@import 'global';
+
+.header__inner{
+  padding-top: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu{
+  &__list{
+    display: flex;
+  }
+  &__item:not(:first-child){
+    margin-left: 32px;
+  }
+  &__link{
+    font-size: 15px;
+    line-height: 1;
+    font-weight: 600;
+    transition: color .3s;
+  }
+  &__link:hover{
+      color: olivedrab;
+  }
+}
+
+.nav{
+ &__users{
+   display: flex;
+ }
+ &__link-search{
+   display: inline-block;
+   text-align: center;
+   padding-top: 16px;
+   border-radius: 50%;
+   width: 50px;
+   height: 50px;
+   background-color: #edf1f4;
+   margin-right: 20px;
+   transition: background-color .3s;
+ }
+ &__link-search:hover{
+   background-color: darkslateblue;
+ }
+ &__search{
+   width: 50px;
+   height: 50px;
+   padding: 15px;
+   margin-top: -15px;
+   transition: fill;
+ }
+ &__search:hover{
+   fill: #fff;
+ }
+ &__span{
+   display: inline-block;
+  vertical-align: top;
+  margin: -30px -18px 0 0;
+  background-color: #fff;
+  font-size: 14px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+ }
+ &__link-heart{
+  display: inline-block;
+  text-align: center;
+  margin-right: -1px;
+  padding-top: 16px;
+  border-radius: 25px 0 0 25px;
+  width: 90px;
+  height: 50px;
+  background-color: #fcd7b6;
+  transition: background-color .3s;
+ }
+ &__link-heart:hover{
+   background-color: coral;
+ }
+ &__heart{
+  width: 15px;
+  height: 15px;
+  transition: fill;
+ }
+ &__heart path:hover{
+   fill: darkgray;
+ }
+ &__decorate{
+   display: inline-block;
+   border-right: 1px solid;
+   color: #fde7d3;
+   height: 32px;
+   margin-top: 8px;
+ }
+ &__link-basket{
+   display: inline-block;
+   text-align: center;
+   padding-top: 16px;
+   border-radius: 0 25px 25px 0;
+   width: 90px;
+   height: 50px;
+   background-color: #fcd7b6;
+   margin-right: 20px;
+   transition: background-color .3s;
+ }
+ &__link-basket:hover{
+  background-color: coral;
+}
+&__basket{
+  transition: fill;
+}
+&__basket path:hover{
+  fill: darkgray;
+}
+ &__link{
+  display: flex;
+  width: 50px;
+  height: 50px;
+  background-color: #a3bbc8;
+  border-radius: 50%;
+  transition: background-color .3s;
+ }
+ &__link:hover{
+   background-color: darkslateblue;
+ }
+ &__img-dots{
+   display: grid;
+   grid-template-columns: 1fr 1fr 1fr;
+   margin: -14px 0 48px 9px;
+ }
+ &__dot{
+   font-size: 32px;
+  width: 1px;
+  height: 1px;
+  padding: 4px;
+  color: #fff;
+ }
+}
+
+
+
+
+
+@import 'media';
