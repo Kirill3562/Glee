@@ -5,10 +5,20 @@ html{
 
 body{
   background-color: $default;
+  display: flex;
+  flex-direction: column;
+}
+
+.main{
+  flex-grow: 1;
 }
 
 .container{
   max-width: 1830px;
   margin: 0 auto;
   padding: 0 30px;
+}
+
+a{
+  color: #7b7b7b;
 }
