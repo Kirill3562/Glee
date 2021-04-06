@@ -219,18 +219,20 @@
     <div class="container">
       <h3 class="products__title">Products of the week</h3>
       <div class="products__filter">
-        <button class="products__btn" type="submit">All</button>
-        <button class="products__btn" type="submit">Furnitures</button>
-        <button class="products__btn" type="submit">Chairs</button>
-        <button class="products__btn" type="submit">Lighting</button>
-        <button class="products__btn" type="submit">Decor</button>
+        <button class="products__btn" data-filter="all" type="button">All</button>
+        <button class="products__btn" data-filter=".category-a" type="button">Furnitures</button>
+        <button class="products__btn" data-filter=".category-b" type="button">Chairs</button>
+        <button class="products__btn" data-filter=".category-c" type="button">Lighting</button>
+        <button class="products__btn" data-filter=".category-d" type="button">Decor</button>
       </div>
       <div class="container global__container">
         <div class="products__items">
-          <div class="products__item">
-            <img class="products__img img__1" src="images/products/chair-1.png" alt="chair">
+          <div class="products__item  mix category-a">
+            <a class="products__link" data-fancybox="images" href="images/products/chair-1.png">
+              <img class="products__img img__1" src="images/products/chair-1.png" alt="chair">
+            </a>
             <div class="products__nav">
-              <a class="products__link-search" href="#">
+              <a class="products__link-search" href="#" data-fancybox="images">
                 <svg class="products__search" xmlns="http://www.w3.org/2000/svg" width="15.28" height="15.281"
                   viewBox="0 0 15.28 15.281">
                   <path class="products__search"
@@ -258,38 +260,52 @@
             <div class="products__name">Wooden radio</div>
             <span class="products__num">$29.00</span>
           </div>
-          <div class="products__item">
-            <img class="products__img img__2" src="images/products/chair-2.png" alt="chair">
+          <div class="products__item  mix category-b">
+            <a class="products__link" data-fancybox="images" href="images/products/chair-2.png">
+              <img class="products__img img__1" src="images/products/chair-2.png" alt="chair">
+            </a>
             <div class="products__name">Wooden chair</div>
             <span class="products__num">$29.00</span>
           </div>
-          <div class="products__item">
-            <img class="products__img img__3" src="images/products/chair-3.png" alt="chair">
+          <div class="products__item  mix category-c">
+            <a class="products__link" data-fancybox="images" href="images/products/chair-3.png">
+              <img class="products__img img__1" src="images/products/chair-3.png" alt="chair">
+            </a>
             <div class="products__name">White chair</div>
             <span class="products__num">$29.00</span>
           </div>
-          <div class="products__item">
-            <img class="products__img img__4" src="images/products/chair-4.png" alt="chair">
+          <div class="products__item  mix category-a">
+            <a class="products__link" data-fancybox="images" href="images/products/chair-4.png">
+              <img class="products__img img__1" src="images/products/chair-4.png" alt="chair">
+            </a>
             <div class="products__name">Retro table</div>
             <span class="products__num">$29.00</span>
           </div>
-          <div class="products__item">
-            <img class="products__img img__5" src="images/products/chair-5.png" alt="chair">
+          <div class="products__item  mix category-c">
+            <a class="products__link" data-fancybox="images" href="images/products/chair-5.png">
+              <img class="products__img img__1" src="images/products/chair-5.png" alt="chair">
+            </a>
             <div class="products__name">Wooden radio</div>
             <span class="products__num">$29.00</span>
           </div>
-          <div class="products__item">
-            <img class="products__img img__6" src="images/products/chair-6.png" alt="chair">
+          <div class="products__item  mix category-b">
+            <a class="products__link" data-fancybox="images" href="images/products/chair-6.png">
+              <img class="products__img img__1" src="images/products/chair-6.png" alt="chair">
+            </a>
             <div class="products__name">Wooden chair</div>
             <span class="products__num">$29.00</span>
           </div>
-          <div class="products__item">
-            <img class="products__img img__7" src="images/products/chair-7.png" alt="chair">
+          <div class="products__item  mix category-d">
+            <a class="products__link" data-fancybox="images" href="images/products/chair-7.png">
+              <img class="products__img img__1" src="images/products/chair-7.png" alt="chair">
+            </a>
             <div class="products__name">White chair</div>
             <span class="products__num">$29.00</span>
           </div>
-          <div class="products__item">
-            <img class="products__img img__8" src="images/products/chair-8.png" alt="chair">
+          <div class="products__item mix category-d">
+            <a class="products__link" data-fancybox="images" href="images/products/chair-8.png">
+              <img class="products__img img__1" src="images/products/chair-8.png" alt="chair">
+            </a>
             <div class="products__name">Retro table</div>
             <span class="products__num">$29.00</span>
           </div>
