@@ -1,9 +1,9 @@
 body,
-html{
+html {
   height: 100%;
 }
 
-body{
+body {
   background-color: $default;
   //display: flex;
   //flex-direction: column;
@@ -13,12 +13,54 @@ body{
 //  //flex-grow: 1;
 //}
 
-.container{
-  max-width: 1830px;
+.container {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 30px;
+  padding: 0 15px;
+  &--large {
+    max-width: 1800px;
+  }
 }
 
-a{
+a {
   color: #7b7b7b;
+}
+
+button {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.title {
+  @extend %dmsans-700;
+  font-size: 36px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.circle {
+  padding-top: 8px;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  transition: background-color 0.3s;
+  border: transparent;
+}
+
+.btn {
+  @extend %rubik-400;
+  font-size: 15px;
+  padding: 22px 100px 22px 18px;
+  transition: background-color 0.3s;
 }

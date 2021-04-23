@@ -6,7 +6,36 @@ const autoprefixer = require('gulp-autoprefixer');
 const uglify = require('gulp-uglify');
 const imagemin = require('gulp-imagemin');
 const del = require('del');
+const gulpCheerio = require('gulp-cheerio');
 const browserSync = require('browser-sync').create();
+const replace = require('gulp-replace');
+const cheerio = require('gulp-cheerio');
+const svgSprite = require('gulp-svg-sprite');
+
+const svgSprites = () => {
+  return src('./src/img/svg/**.svg')
+
+    .pipe(cheerio({
+      run: function ($) {
+        $('[fill]').removeAttr('fill');
+        $('[stroke]').removeAttr('stroke');
+        $('[style]').removeAttr('style');
+      },
+      parserOptions: {xmlmode: true}
+    }))
+
+    .pipe(replace('&gt;', '>'))
+
+    .pipe(svgSprite({
+      mode: {
+        stack: {
+          sprite: "../sprite.svg"
+        }
+      },
+    }))
+
+    .pipe(dest('./app/img'));
+}
 
 function browsersync() {
   browserSync.init({
@@ -32,7 +61,6 @@ function scripts() {
   return src([
     'node_modules/jquery/dist/jquery.js',
     'node_modules/slick-carousel/slick/slick.js',
-    'node__mosdules/@fancyapps/fancybox/dist/jquery.fancybox.js',
     'node_modules/mixitup/dist/mixitup.js',
     'app/js/main.js'
   ])
@@ -83,6 +111,7 @@ exports.browsersync = browsersync;
 exports.watching = watching;
 exports.images = images;
 exports.cleanDist = cleanDist;
-exports.build = series(cleanDist, images, build);
+exports.svgSprites = svgSprites;
+exports.build = series(cleanDist, images, svgSprites, build);
 
-exports.default = parallel(styles, scripts, browsersync, watching);
+exports.default = parallel(styles, include, svgSprites, scripts, browsersync, watching);
