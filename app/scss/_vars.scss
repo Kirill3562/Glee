@@ -2,6 +2,7 @@ $default: #ffffff;
 $black: #000000;
 $darkblue: darkslateblue;
 $pink: #fcd7b6;
+$gree-blue: #a3bbc8;
 
 @mixin text-clamp($lines: 2, $line-height: false) {
   overflow: hidden;
@@ -49,4 +50,11 @@ $pink: #fcd7b6;
 %rubik-400 {
   font-family: "Rubik-Regular", sans-serif;
   font-weight: 400;
+}
+
+@function max($numbers...) {
+  @return m#{a}x(#{$numbers});
+}
+@function min($numbers...) {
+  @return m#{i}n(#{$numbes});
 }

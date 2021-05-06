@@ -5,15 +5,35 @@ const concat = require('gulp-concat');
 const autoprefixer = require('gulp-autoprefixer');
 const uglify = require('gulp-uglify');
 const imagemin = require('gulp-imagemin');
+const rename = require('gulp-rename');
 const del = require('del');
 const gulpCheerio = require('gulp-cheerio');
 const browserSync = require('browser-sync').create();
 const replace = require('gulp-replace');
 const cheerio = require('gulp-cheerio');
+const nunjucksRender = require('gulp-nunjucks-render');
 const svgSprite = require('gulp-svg-sprite');
+//const fileinclude = require('gulp-file-include');
+
+function nunjucks() {
+  return src('app/*.njk')
+    .pipe(nunjucksRender())
+    .pipe(dest('app'))
+    .pipe(browserSync.stream())
+}
+
+//function includeHtml() {
+//  return src('app/html/**/*.html')
+//    .pipe(fileinclude({
+//      prefix: '@@',
+//      basepath: '@file'
+//    }))
+//    .pipe(dest('app'))
+//    .pipe(browserSync.stream());
+//}
 
 const svgSprites = () => {
-  return src('./src/img/svg/**.svg')
+  return src('./app/images/icons/**.svg')
 
     .pipe(cheerio({
       run: function ($) {
@@ -21,7 +41,7 @@ const svgSprites = () => {
         $('[stroke]').removeAttr('stroke');
         $('[style]').removeAttr('style');
       },
-      parserOptions: {xmlmode: true}
+      parserOptions: { xmlmode: true }
     }))
 
     .pipe(replace('&gt;', '>'))
@@ -34,7 +54,7 @@ const svgSprites = () => {
       },
     }))
 
-    .pipe(dest('./app/img'));
+    .pipe(dest('./app/images'));
 }
 
 function browsersync() {
@@ -44,12 +64,16 @@ function browsersync() {
     },
     notofy: false
   })
+
 }
 
 function styles() {
-  return src('app/scss/style.scss')
+  return src('app/scss/*.scss')
     .pipe(scss({ outputStyle: 'compressed' }))
-    .pipe(concat('style.min.css'))
+    //.pipe(concat())
+    .pipe(rename({
+      suffix: '.min'
+    }))
     .pipe(autoprefixer({
       overrideBrowserslist: ['last 10 versions'], grid: true
     }))
@@ -62,6 +86,7 @@ function scripts() {
     'node_modules/jquery/dist/jquery.js',
     'node_modules/slick-carousel/slick/slick.js',
     'node_modules/mixitup/dist/mixitup.js',
+    'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.js',
     'app/js/main.js'
   ])
     .pipe(concat('main.min.js'))
@@ -101,8 +126,9 @@ function cleanDist() {
 
 function watching() {
   watch(['app/scss/**/*.scss'], styles);
+  watch(['app/*.njk'], nunjucks);
   watch(['app/js/**/*.js', '!app/js/main.min.js'], scripts)
-  watch(['app/**/*.html']).on('change', browserSync.reload);
+  watch(['app/**/*.html',]).on('change', browserSync.reload);
 }
 
 exports.styles = styles;
@@ -110,8 +136,10 @@ exports.scripts = scripts;
 exports.browsersync = browsersync;
 exports.watching = watching;
 exports.images = images;
+exports.nunjucks = nunjucks;
 exports.cleanDist = cleanDist;
 exports.svgSprites = svgSprites;
+//exports.includeHtml = includeHtml;
 exports.build = series(cleanDist, images, svgSprites, build);
 
-exports.default = parallel(styles, include, svgSprites, scripts, browsersync, watching);
+exports.default = parallel(nunjucks, styles, svgSprites, scripts, browsersync, watching);
