@@ -1,0 +1,141 @@
+.header__inner {
+  padding: 50px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .menu {
+    display: flex;
+    margin-left: 135px;
+
+    &__item {
+      &:not(:last-child) {
+        margin-right: 32px;
+      }
+    }
+
+    &__link {
+      @extend %rubik-400;
+      font-size: 15px;
+      line-height: 1;
+      transition: color, font-weight 0.3s;
+      &:hover {
+        color: $darkblue;
+      }
+
+      &:focus {
+        color: $black;
+      }
+    }
+  }
+}
+
+.use {
+  display: flex;
+
+  &__btn-search {
+    padding-top: 8px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: #edf1f4;
+    margin-right: 20px;
+    transition: background-color 0.3s;
+    border: transparent;
+    &:hover {
+      background-color: $darkblue;
+      fill: $default;
+    }
+  }
+
+  &__search {
+    transition: fill;
+  }
+
+  &__span-heart,
+  &__span-basket {
+    position: absolute;
+    display: inline-block;
+    background-color: $default;
+    font-size: 14px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+  }
+
+  &__span-heart,
+  &__span-basket {
+    top: 15px;
+    right: 27px;
+  }
+
+  &__link-heart {
+    text-align: center;
+    display: inline-block;
+    padding-top: 22px;
+    border-radius: 25px 0 0 25px;
+    width: 90px;
+    height: 50px;
+    background-color: $pink;
+    transition: background-color 0.3s;
+    position: relative;
+    &:after {
+      content: "|";
+      position: absolute;
+      color: $default;
+      opacity: 0.5;
+      right: 0;
+      top: 7px;
+      font-size: 32px;
+      width: 3px;
+    }
+    &:hover {
+      background-color: coral;
+    }
+  }
+
+  &__heart {
+    width: 15px;
+    height: 15px;
+    transition: fill;
+    position: relative;
+  }
+
+  &__heart path {
+    fill: #25404d;
+  }
+
+  &__link-basket {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    padding-top: 20px;
+    color: #25404d;
+    border-radius: 0 25px 25px 0;
+    width: 90px;
+    height: 50px;
+    background-color: $pink;
+    margin-right: 20px;
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: coral;
+    }
+  }
+
+  &__btn-menu {
+    width: 50px;
+    height: 50px;
+    padding: 14px;
+    background-color: #a3bbc8;
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: $darkblue;
+    }
+  }
+
+  .use__menu {
+    width: 21px;
+    height: 22px;
+    fill: $default;
+  }
+}
