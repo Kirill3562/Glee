@@ -5,8 +5,67 @@ const concat = require('gulp-concat');
 const autoprefixer = require('gulp-autoprefixer');
 const uglify = require('gulp-uglify');
 const imagemin = require('gulp-imagemin');
+const rename = require('gulp-rename');
 const del = require('del');
+const gulpCheerio = require('gulp-cheerio');
 const browserSync = require('browser-sync').create();
+const replace = require('gulp-replace');
+const cheerio = require('gulp-cheerio');
+//const nunjucksRender = require('gulp-nunjucks-render');
+const svgSprite = require('gulp-svg-sprite');
+const fileinclude = require('gulp-file-include');
+
+//function nunjucks() {
+//  return src('app/*.njk')
+//    .pipe(nunjucksRender())
+//    .pipe(dest('app'))
+//    .pipe(browserSync.stream())
+//}
+
+
+//gulp.task('fileinclude', function () {
+//  gulp.src(['index.html'])
+//    .pipe(fileinclude({
+//      prefix: '@@',
+//      basepath: '@file'
+//    }))
+//    .pipe(gulp.dest('app'));
+//});
+
+function includeHtml() {
+  return src('app/**/*.html')
+    .pipe(fileinclude({
+      prefix: '@@',
+      basepath: '@file'
+    }))
+    .pipe(dest('app'))
+    .pipe(browserSync.stream());
+}
+
+const svgSprites = () => {
+  return src('./app/images/icons/**.svg')
+
+    .pipe(cheerio({
+      run: function ($) {
+        $('[fill]').removeAttr('fill');
+        $('[stroke]').removeAttr('stroke');
+        $('[style]').removeAttr('style');
+      },
+      parserOptions: { xmlmode: true }
+    }))
+
+    .pipe(replace('&gt;', '>'))
+
+    .pipe(svgSprite({
+      mode: {
+        stack: {
+          sprite: "../sprite.svg"
+        }
+      },
+    }))
+
+    .pipe(dest('./app/images'));
+}
 
 function browsersync() {
   browserSync.init({
@@ -15,12 +74,16 @@ function browsersync() {
     },
     notofy: false
   })
+
 }
 
 function styles() {
-  return src('app/scss/style.scss')
+  return src('app/scss/**/*.scss')
     .pipe(scss({ outputStyle: 'compressed' }))
     .pipe(concat('style.min.css'))
+    //.pipe(rename({
+    //  suffix: '.min'
+    //}))
     .pipe(autoprefixer({
       overrideBrowserslist: ['last 10 versions'], grid: true
     }))
@@ -32,8 +95,8 @@ function scripts() {
   return src([
     'node_modules/jquery/dist/jquery.js',
     'node_modules/slick-carousel/slick/slick.js',
-    'node__mosdules/@fancyapps/fancybox/dist/jquery.fancybox.js',
     'node_modules/mixitup/dist/mixitup.js',
+    'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.js',
     'app/js/main.js'
   ])
     .pipe(concat('main.min.js'))
@@ -73,8 +136,10 @@ function cleanDist() {
 
 function watching() {
   watch(['app/scss/**/*.scss'], styles);
-  watch(['app/js/**/*.js', '!app/js/main.min.js'], scripts)
-  watch(['app/**/*.html']).on('change', browserSync.reload);
+  //watch(['app/*.njk'], nunjucks);
+  watch(['app/js/**/*.js', '!app/js/main.min.js'], scripts);
+  //watch(['app/**/*.html',]).on('change', browserSync.reload);
+  watch(['app/**./*.html',], includeHtml);
 }
 
 exports.styles = styles;
@@ -82,7 +147,10 @@ exports.scripts = scripts;
 exports.browsersync = browsersync;
 exports.watching = watching;
 exports.images = images;
+//exports.nunjucks = nunjucks;
 exports.cleanDist = cleanDist;
-exports.build = series(cleanDist, images, build);
+exports.svgSprites = svgSprites;
+exports.includeHtml = includeHtml;
+exports.build = series(cleanDist, images, svgSprites, build);
 
-exports.default = parallel(styles, scripts, browsersync, watching);
+exports.default = parallel(includeHtml, styles, svgSprites, scripts, browsersync, watching);

@@ -6,8 +6,11 @@ $(function () {
 
   });
 
+  //$('.video-view a').fancybox({
 
+  //});
 
-  var mixer = mixitup('.products__items');
+  var mixer = mixitup('.products-week__items');
+  var mixer = mixitup('.new-design__items');
 
 });
