@@ -11,26 +11,36 @@ const gulpCheerio = require('gulp-cheerio');
 const browserSync = require('browser-sync').create();
 const replace = require('gulp-replace');
 const cheerio = require('gulp-cheerio');
-const nunjucksRender = require('gulp-nunjucks-render');
+//const nunjucksRender = require('gulp-nunjucks-render');
 const svgSprite = require('gulp-svg-sprite');
-//const fileinclude = require('gulp-file-include');
+const fileinclude = require('gulp-file-include');
 
-function nunjucks() {
-  return src('app/*.njk')
-    .pipe(nunjucksRender())
-    .pipe(dest('app'))
-    .pipe(browserSync.stream())
-}
+//function nunjucks() {
+//  return src('app/*.njk')
+//    .pipe(nunjucksRender())
+//    .pipe(dest('app'))
+//    .pipe(browserSync.stream())
+//}
 
-//function includeHtml() {
-//  return src('app/html/**/*.html')
+
+//gulp.task('fileinclude', function () {
+//  gulp.src(['index.html'])
 //    .pipe(fileinclude({
 //      prefix: '@@',
 //      basepath: '@file'
 //    }))
-//    .pipe(dest('app'))
-//    .pipe(browserSync.stream());
-//}
+//    .pipe(gulp.dest('app'));
+//});
+
+function includeHtml() {
+  return src('app/**/*.html')
+    .pipe(fileinclude({
+      prefix: '@@',
+      basepath: '@file'
+    }))
+    .pipe(dest('app'))
+    .pipe(browserSync.stream());
+}
 
 const svgSprites = () => {
   return src('./app/images/icons/**.svg')
@@ -68,12 +78,12 @@ function browsersync() {
 }
 
 function styles() {
-  return src('app/scss/*.scss')
+  return src('app/scss/**/*.scss')
     .pipe(scss({ outputStyle: 'compressed' }))
-    //.pipe(concat())
-    .pipe(rename({
-      suffix: '.min'
-    }))
+    .pipe(concat('style.min.css'))
+    //.pipe(rename({
+    //  suffix: '.min'
+    //}))
     .pipe(autoprefixer({
       overrideBrowserslist: ['last 10 versions'], grid: true
     }))
@@ -126,9 +136,10 @@ function cleanDist() {
 
 function watching() {
   watch(['app/scss/**/*.scss'], styles);
-  watch(['app/*.njk'], nunjucks);
-  watch(['app/js/**/*.js', '!app/js/main.min.js'], scripts)
-  watch(['app/**/*.html',]).on('change', browserSync.reload);
+  //watch(['app/*.njk'], nunjucks);
+  watch(['app/js/**/*.js', '!app/js/main.min.js'], scripts);
+  //watch(['app/**/*.html',]).on('change', browserSync.reload);
+  watch(['app/**./*.html',], includeHtml);
 }
 
 exports.styles = styles;
@@ -136,10 +147,10 @@ exports.scripts = scripts;
 exports.browsersync = browsersync;
 exports.watching = watching;
 exports.images = images;
-exports.nunjucks = nunjucks;
+//exports.nunjucks = nunjucks;
 exports.cleanDist = cleanDist;
 exports.svgSprites = svgSprites;
-//exports.includeHtml = includeHtml;
+exports.includeHtml = includeHtml;
 exports.build = series(cleanDist, images, svgSprites, build);
 
-exports.default = parallel(nunjucks, styles, svgSprites, scripts, browsersync, watching);
+exports.default = parallel(includeHtml, styles, svgSprites, scripts, browsersync, watching);

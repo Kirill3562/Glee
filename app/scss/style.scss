@@ -4,6 +4,88 @@
 @import "libs";
 @import "global";
 
+.header {
+  padding-top: 40px;
+  margin-bottom: 45px;
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .menu {
+    display: flex;
+    &__item:not(:last-child) {
+      margin-right: 30px;
+    }
+    &__link {
+      font-size: 15px;
+      @extend %rubik-500;
+      color: $gree-blue;
+    }
+  }
+
+  .use {
+    display: flex;
+
+    &__btn-search {
+      border-radius: 50%;
+      background-color: $gree-blue;
+      width: 50px;
+      height: 50px;
+      transition: background-color 0.3s;
+      border: transparent;
+      &:hover {
+        background-color: $darkblue;
+      }
+    }
+
+    .item--2,
+    .item--3 {
+      margin-top: 18px;
+    }
+
+    &__link-heart {
+      padding: 23px 30px 13px 42px;
+      background-color: $pink;
+      border-radius: 25px 0 0 25px;
+    }
+
+    &__heart {
+      width: 17px;
+      height: 17px;
+      background-color: $pink;
+    }
+
+    &__link-basket {
+      padding: 23px 30px 13px 42px;
+      background-color: $pink;
+      border-radius: 0 25px 25px 0;
+    }
+
+    &__basket {
+      width: 17px;
+      height: 17px;
+    }
+
+    &__btn-menu {
+      background-color: $gree-blue;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      transition: background-color 0.3s;
+      border: transparent;
+      &:hover {
+        background-color: $darkblue;
+      }
+    }
+
+    &__menu {
+      fill: $default;
+    }
+  }
+}
+
 .top-slider {
   margin-bottom: 65px;
 
