@@ -23,17 +23,9 @@ const fileinclude = require('gulp-file-include');
 //}
 
 
-//gulp.task('fileinclude', function () {
-//  gulp.src(['index.html'])
-//    .pipe(fileinclude({
-//      prefix: '@@',
-//      basepath: '@file'
-//    }))
-//    .pipe(gulp.dest('app'));
-//});
 
 function includeHtml() {
-  return src('app/**/*.html')
+  return src('/*.html')
     .pipe(fileinclude({
       prefix: '@@',
       basepath: '@file'
@@ -138,8 +130,8 @@ function watching() {
   watch(['app/scss/**/*.scss'], styles);
   //watch(['app/*.njk'], nunjucks);
   watch(['app/js/**/*.js', '!app/js/main.min.js'], scripts);
-  //watch(['app/**/*.html',]).on('change', browserSync.reload);
-  watch(['app/**./*.html',], includeHtml);
+  watch(['app/**/*.html',]).on('change', browserSync.reload);
+  watch(['app/html/**/*.html',], includeHtml);
 }
 
 exports.styles = styles;
